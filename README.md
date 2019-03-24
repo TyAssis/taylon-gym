@@ -19,7 +19,13 @@ Well, then. *Feel free to run/read/judge/test/contest* all these code challenges
 *It's my GYM, where a train my skills and challenge another coders!*
 
 <div vertical layout align="center">
-  <img src="http://letscode-academy.com/wp-content/uploads/2017/06/logo-horizontal-01.png" 
-       width="250" height="100" marginBottom="-20"/>
-  <img src="https://pngimage.net/wp-content/uploads/2018/06/gotta-catch-em-all-png-5.png" width="350" height="100" />
+   <tr>
+    <td>
+      <img src="http://letscode-academy.com/wp-content/uploads/2017/06/logo-horizontal-01.png" 
+             width="350" height="100" marginBottom="-20"/>
+    </td>
+    <td>
+      <img src="https://pngimage.net/wp-content/uploads/2018/06/gotta-catch-em-all-png-5.png" width="250" height="100" />
+    </td>
+  </tr>
 </div>
