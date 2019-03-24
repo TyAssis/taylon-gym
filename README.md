@@ -18,14 +18,15 @@ Did not take the [reference](https://www.youtube.com/watch?v=jp4BKcFIfB0 "Hope t
 Well, then. *Feel free to run/read/judge/test/contest* all these code challenges.
 *It's my GYM, where a train my skills and challenge another coders!*
 
-<div vertical layout align="center">
-   <tr>
-    <td>
+<style type="text/css">
+	#outercontainer { position:relative }
+	#innercontainer { position:absolute; top:50%; height:10em; margin-top:-5em }
+</style>
+
+<div id="outercontainer">
+  <div id="innercontainer">
       <img src="http://letscode-academy.com/wp-content/uploads/2017/06/logo-horizontal-01.png" 
              width="350" height="100" marginBottom="-20"/>
-    </td>
-    <td>
       <img src="https://pngimage.net/wp-content/uploads/2018/06/gotta-catch-em-all-png-5.png" width="250" height="100" />
-    </td>
-  </tr>
+   </div>
 </div>
