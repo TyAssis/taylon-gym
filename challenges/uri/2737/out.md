@@ -1,0 +1,5 @@
+name | customers_number
+--- | ---
+Chelsey D. Sanders | 20
+Marty M. Harrison | 5
+Average | 12
