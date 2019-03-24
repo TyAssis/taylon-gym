@@ -21,8 +21,9 @@ Fine, show me your best!
 
 Well, then. **Feel free to run/read/judge/test/contest** all these code challenges.
 
-**It's my GYM, where a train my skills and challenge another coders!**
+**It is my GYM, where a train my skills and challenge another coders!**
 
 <div align="center">
 	<img src="https://pngimage.net/wp-content/uploads/2018/06/gotta-catch-em-all-png-5.png" width="350" height="100" />
 </div>
+
