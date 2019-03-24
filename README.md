@@ -27,4 +27,3 @@ Well, then. **Feel free to run/read/judge/test/contest** all these code challeng
 	<img src="https://pngimage.net/wp-content/uploads/2018/06/gotta-catch-em-all-png-5.png" width="350" height="100" />
 </div>
 
-
