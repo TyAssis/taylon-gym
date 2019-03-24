@@ -4,19 +4,19 @@ Then, you must show the names of all customers whose state is 'RS'.
 
 #### Schema
 
-#####customers
+##### customers
 Column | Type
 --- | ---	
-id (PK)|numeric	
-name|varchar
-street|varchar
-city|varchar
-state|char	
-credit_limit|number 
+id (PK) | numeric	
+name | varchar
+street | varchar
+city | varchar
+state | char	
+credit_limit | number 
 
-####Tables
+#### Tables
 
-#####customers
+##### customers
 id | name | street | city | state | credit_limit	
 --- | --- | --- | --- | --- | ---
 1 | Pedro Augusto da Rocha | Rua Pedro Carlos Hoffman | Porto Alegre | RS | 700,00	
