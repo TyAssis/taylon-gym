@@ -11,7 +11,7 @@ That's right - my TRAINING are all CLEAN CODED type!
 
 Fuhaha! You're going to challenge me knowing that you'll lose?
 
-That's the CODER's honor thats compels you to challeng me.
+That's the CODER's honor thats compels you to challenge me.
 Fine, show me your best!
 ```
 
