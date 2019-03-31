@@ -1,3 +1,5 @@
+https://www.codewars.com/kata/find-the-smallest-integer-in-the-array/train/python
+
 Description:
 Given an array of integers your solution should find the smallest integer.
 
