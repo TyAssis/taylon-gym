@@ -5,13 +5,11 @@ const stringify = (object) => {
     if(Object.keys(object).length === 0)
         return '{}';
 
-    if(Array.isArray(object) && containsObject(object)) {
+    if(Array.isArray(object)) {
         for(let i = 0; i < object.length; i++) {
             if (typeof(object[i]) === 'object') 
                 object[i] = stringify(object[i]);
         }
-        return '[' + object + ']';
-    } else if (Array.isArray(object)) {
         return '[' + object + ']';
     }
 
@@ -36,16 +34,7 @@ const stringify = (object) => {
     }
 
     return newObject; 
-}
-
-const containsObject = (array) => {
-    for(let i = 0; i < array.length; i++) {
-        if (typeof(array[i]) === 'object') {
-            return true;
-        }
-    }
-    return false;
-}
+};
 
 module.exports = {
 	stringify
