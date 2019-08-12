@@ -7,6 +7,6 @@ describe('sortPureFunctions', function () {
 	});
 
 	it('deve ordernar com números inteiros', () => {
-		assert.deepEqual(sortPureFunctions([5,3,2,3,5,-1,7], [-1,2,3,3,5,5,7]));
+		assert.deepEqual(sortPureFunctions([5,3,2,3,5,-1,7]), [-1,2,3,3,5,5,7]);
 	})
 });

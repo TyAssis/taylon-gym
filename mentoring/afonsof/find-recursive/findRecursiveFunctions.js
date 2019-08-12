@@ -1,11 +1,8 @@
-let index = -1;
-
-const findRecursiveFunctions = (list, value) => {
-	index++;
-	if (list.length <= index)
-		return null;
+const findRecursiveFunctions = (list, value, index = 0) => {
+	if (list.length === index)
+		return -1;
 	else 
-		return list[index] == value ? index : findRecursiveFunctions(list, value); 
+		return list[index] == value ? index : findRecursiveFunctions(list, value, ++index); 
 };
 
 module.exports = {
