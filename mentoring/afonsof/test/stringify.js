@@ -2,16 +2,17 @@ const { assert } = require('chai');
 const { stringify } = require('../stringify/stringify.js');
 
 describe('stringify', () => {
+
 	it('serialize an empty json', () => {
 		assert.equal(stringify({}), '{}');
 	});
 	
 	it('serialize a json containing letter in key and numbers in value', () => {
-		assert.equal(stringify({ abc: 123 }), '{"abc": 123}');
+		assert.equal(stringify({ abc: 123 }), '{"abc":123}');
 	});
 	
 	it('serialize a json containing letter in key and in value', () => {
-		assert.equal(stringify({ abc: "def" }), '{"abc": "def"}');
+		assert.equal(stringify({ abc: "def" }), '{"abc":"def"}');
 	});
 	
 	it('serialize an array of numbers', () => {
