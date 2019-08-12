@@ -13,7 +13,7 @@ const stringify = (object) => {
         return '[' + object + ']';
     }
 
-    let newObject = '';
+    let stringy = '';
 
     for (key in object) {
         if(typeof(object[key]) === 'object') {
@@ -30,10 +30,10 @@ const stringify = (object) => {
             ) + '"';
         }
 
-        newObject += '{' + keys + ':' + values + '}';
+        stringy += '{' + keys + ':' + values + '}';
     }
 
-    return newObject; 
+    return stringy; 
 };
 
 module.exports = {
