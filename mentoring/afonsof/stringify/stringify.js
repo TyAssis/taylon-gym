@@ -1,19 +1,26 @@
 const stringify = (object) => {
     if(object === null)
-        return null;
+        return 'null';
 
     if(Object.keys(object).length === 0)
         return '{}';
 
-    if(Array.isArray(object))
+    if(Array.isArray(object) && containsObject(object)) {
+        for(let i = 0; i < object.length; i++) {
+            if (typeof(object[i]) === 'object') 
+                object[i] = stringify(object[i]);
+        }
         return '[' + object + ']';
+    } else if (Array.isArray(object)) {
+        return '[' + object + ']';
+    }
 
     let newObject = '';
 
     for (key in object) {
-        if(typeof(object[key]) === 'object')
+        if(typeof(object[key]) === 'object') {
             values = stringify(object[key]);
-        else if (typeof(object[key]) === 'string') {
+        } else if (typeof(object[key]) === 'string') {
             values = '"' + Object.values(object).reduce((acc, cur) => acc + cur) + '"';
         } else {
             values = Object.values(object).reduce((acc, cur) => acc + cur);
@@ -29,6 +36,15 @@ const stringify = (object) => {
     }
 
     return newObject; 
+}
+
+const containsObject = (array) => {
+    for(let i = 0; i < array.length; i++) {
+        if (typeof(array[i]) === 'object') {
+            return true;
+        }
+    }
+    return false;
 }
 
 module.exports = {
