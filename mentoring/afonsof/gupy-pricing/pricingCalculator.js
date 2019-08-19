@@ -1,4 +1,4 @@
-const pricingCalculator = (job, jobData) => {
+const jobCostCalculator = (job, jobData) => {
     let value = 0;
     switch (jobData.type) {
         case "effective":
@@ -20,14 +20,24 @@ const pricingCalculator = (job, jobData) => {
     return value;
 };
 
-const creditsCalculator = (job, jobData) => {
+const creditsCalculator = (companyJobs, jobs) => {
     let volumeCredits = 0;
-    volumeCredits += Math.max(job.applicationCount - 30, 0);
-    if ("talentPool" === jobData.type) volumeCredits += Math.floor(job.applicationCount / 5);
+    for (let job of companyJobs.jobs) {
+        volumeCredits += Math.max(job.applicationCount - 30, 0);
+        if ("talentPool" === jobs[job.jobId].type) 
+            volumeCredits += Math.floor(job.applicationCount / 5);
+    }
     return volumeCredits;
 };
 
+const format = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2
+}).format;
+
 module.exports = {
-    pricingCalculator,
-    creditsCalculator
-}
+    jobCostCalculator,
+    creditsCalculator,
+    format
+};
