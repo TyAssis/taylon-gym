@@ -10,7 +10,7 @@ const stringify = (object) => {
             if (typeof(object[i]) === 'object') 
                 object[i] = stringify(object[i]);
         }
-        return '[' + object + ']';
+        return '[' + object.join(',') + ']';
     }
 
     let stringy = '';
@@ -19,13 +19,13 @@ const stringify = (object) => {
         if(typeof(object[key]) === 'object') {
             values = stringify(object[key]);
         } else if (typeof(object[key]) === 'string') {
-            values = '"' + Object.values(object).reduce((acc, cur) => acc + cur) + '"';
+            values = '"' + object[key] + '"';
         } else {
             values = Object.values(object).reduce((acc, cur) => acc + cur);
         }
 
         if(typeof(key) === 'string') {
-            keys = '"' + Object.keys(object).reduce((acc, cur) => 
+            keys = '"' + Object.keys(object).reduce((acc, cur) =>
                 acc + cur
             ) + '"';
         }

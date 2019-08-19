@@ -1,5 +1,5 @@
 const { assert } = require('chai');
-const { stringify } = require('../stringify/stringify.js');
+const { stringify } = require('../stringify/stringify2.js');
 
 describe('stringify', () => {
 
@@ -14,7 +14,12 @@ describe('stringify', () => {
 	it('serialize a json containing letter in key and in value', () => {
 		assert.equal(stringify({ abc: "def" }), '{"abc":"def"}');
 	});
-	
+
+
+	it('serialize a json containing letter in key and in value', () => {
+		assert.equal(stringify({ abc: "def", ghi: "jkl" }), '{"abc":"def","ghi":"jkl"}');
+	});
+
 	it('serialize an array of numbers', () => {
 		assert.equal(stringify([1, 2, 3]), '[1,2,3]');
 	});
@@ -29,5 +34,5 @@ describe('stringify', () => {
 	
 	it('serialize inner json on an array', () => {
 		assert.equal(stringify({ a: { b: [{ id: 1 }, { id: 2 }, null] } }), '{"a":{"b":[{"id":1},{"id":2},null]}}');
-	});	
+	});
 });
