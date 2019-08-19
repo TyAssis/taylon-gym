@@ -1,4 +1,5 @@
 const { creditsCalculator } = require('./pricingCalculator.js');
+const { pricingCalculator } = require('./pricingCalculator.js');
 
 function custo(companyJobs, jobs, companies) {
     let totalAmount = 0;
@@ -13,25 +14,7 @@ function custo(companyJobs, jobs, companies) {
         let value = 0;
         const jobData = jobs[job.jobId];
         volumeCredits += creditsCalculator(job, jobData);
-
-        switch (jobData.type) {
-            case "effective":
-                value = 40000;
-                if (job.applicationCount > 30) {
-                    value += 1000 * (job.applicationCount - 30);
-                }
-                break;
-            case "talentPool":
-                value = 30000;
-                if (job.applicationCount > 20) {
-                    value += 10000 + 500 * (job.applicationCount - 20);
-                }
-                value += 300 * job.applicationCount;
-                break;
-            default:
-                throw new Error(`unknown type: ${jobData.type}`);
-        }
-        
+        value += pricingCalculator(job, jobData);
         result += `  ${jobData.name}: ${format(value / 100)} (${job.applicationCount} inscrições)\n`;
         totalAmount += value;
     }

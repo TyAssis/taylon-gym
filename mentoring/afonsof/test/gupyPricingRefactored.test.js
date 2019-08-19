@@ -4,6 +4,7 @@ const { companies } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { companyJobs } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { jobs } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { creditsCalculator } = require('../gupy-pricing/pricingCalculator.js');
+const { pricingCalculator } = require('../gupy-pricing/pricingCalculator.js');
 
 describe('custo', () => {
     it('ambev pricing message', () => {
@@ -32,5 +33,23 @@ describe('creditsCalculator', () => {
 
     it('creditsCalculator should return 12 when 35 applications to a talentPool', () => {
         assert.equal(creditsCalculator({ applicationCount: 35 }, { type: "talentPool" }), 12);
+    });
+});
+
+describe('pricingCalculator', () => {
+    it('pricingCalculator should return 40000 when no applications to an effective job', () => {
+        assert.equal(pricingCalculator({applicationCount: 0}, {type: "effective"}), 40000);
+     });
+
+    it('pricingCalculator should return 30000 when no applications to a talentPool', () => {
+        assert.equal(pricingCalculator({ applicationCount: 0 }, { type: "talentPool" }), 30000);
+    });
+
+    it('pricingCalculator should return 41000 when 31 applications to an effective job', () => {
+        assert.equal(pricingCalculator({applicationCount: 31}, {type: "effective"}), 41000);
+     });
+
+    it('pricingCalculator should return 46800 when 21 applications to a talentPool', () => {
+        assert.equal(pricingCalculator({ applicationCount: 21 }, { type: "talentPool" }), 46800);
     });
 });
