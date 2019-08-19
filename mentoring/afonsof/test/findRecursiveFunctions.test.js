@@ -6,7 +6,7 @@ describe('findRecursiveFunctions', function () {
  		assert.equal(findRecursiveFunctions([3,7,3,0,8,7,5], 0), 3);
 	});
 
-	it('deve retornar null se não encontrar um elemento no array', () => {
-		assert.equal(findRecursiveFunctions([4,5,2,1,2,9],3), null);
+	it('deve retornar -1 se não encontrar um elemento no array', () => {
+		assert.equal(findRecursiveFunctions([4,5,2,1,2,9],3), -1);
 	});
 });
