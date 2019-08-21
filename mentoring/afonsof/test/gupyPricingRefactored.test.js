@@ -55,20 +55,25 @@ describe('creditsCalculator', () => {
     });
 });
 
-describe('pricingCalculator', () => {
-    it('pricingCalculator should return 40000 when no applications to an effective job', () => {
-        assert.equal(jobCostCalculator({applicationCount: 0}, {type: "effective"}), 40000);
+describe('jobCostCalculator', () => {
+    it('jobCostCalculator should return 40000 when no applications to an effective job', () => {
+        assert.equal(jobCostCalculator({applicationCount: 0}, "effective"), 40000);
      });
 
-    it('pricingCalculator should return 30000 when no applications to a talentPool', () => {
-        assert.equal(jobCostCalculator({ applicationCount: 0 }, { type: "talentPool" }), 30000);
+    it('jobCostCalculator should return 30000 when no applications to a talentPool', () => {
+        assert.equal(jobCostCalculator({ applicationCount: 0 }, "talentPool"), 30000);
     });
 
-    it('pricingCalculator should return 41000 when 31 applications to an effective job', () => {
-        assert.equal(jobCostCalculator({applicationCount: 31}, {type: "effective"}), 41000);
+    it('jobCostCalculator should return 41000 when 31 applications to an effective job', () => {
+        assert.equal(jobCostCalculator({applicationCount: 31}, "effective"), 41000);
      });
 
-    it('pricingCalculator should return 46800 when 21 applications to a talentPool', () => {
-        assert.equal(jobCostCalculator({ applicationCount: 21 }, { type: "talentPool" }), 46800);
+    it('jobCostCalculator should return 46800 when 21 applications to a talentPool', () => {
+        assert.equal(jobCostCalculator({ applicationCount: 21 }, "talentPool"), 46800);
     });
+
+// describe('getTotalCost', () => {
+//     it('getTotalCost should return ')
+// });
+
 });

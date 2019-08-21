@@ -1,6 +1,6 @@
-const jobCostCalculator = (job, jobData) => {
+const jobCostCalculator = (job, jobType) => {
     let value = 0;
-    switch (jobData.type) {
+    switch (jobType) {
         case "effective":
             value = 40000;
             if (job.applicationCount > 30) {
@@ -15,19 +15,28 @@ const jobCostCalculator = (job, jobData) => {
             value += 300 * job.applicationCount;
             break;
         default:
-            throw new Error(`unknown type: ${jobData.type}`);
+            throw new Error(`unknown type: ${jobType}`);
     }
     return value;
 };
 
+const getTotalAmount = (companyJobs, jobs) => {
+    let totalAmount = 0;
+    return Object.values(companyJobs.jobs).map(job => {
+        const values = jobCostCalculator(job, jobs[job.jobId].type);
+        totalAmount += values;
+        return `  ${jobs[job.jobId].name}: ${format(values / 100)} (${job.applicationCount} inscrições)\n`;
+    }).join('').concat(`Total devido ${format(totalAmount / 100)}\n`);
+
+};
+
 const creditsCalculator = (companyJobs, jobs) => {
-    let volumeCredits = 0;
-    for (let job of companyJobs.jobs) {
-        volumeCredits += Math.max(job.applicationCount - 30, 0);
+    return Object.values(companyJobs.jobs).map(job => {
+        let volumeCredits = Math.max(job.applicationCount - 30, 0);
         if ("talentPool" === jobs[job.jobId].type) 
             volumeCredits += Math.floor(job.applicationCount / 5);
-    }
-    return volumeCredits;
+        return volumeCredits
+    }).reduce((acc, curr) => acc + curr);
 };
 
 const format = new Intl.NumberFormat("pt-BR", {
@@ -39,5 +48,6 @@ const format = new Intl.NumberFormat("pt-BR", {
 module.exports = {
     jobCostCalculator,
     creditsCalculator,
-    format
+    format,
+    getTotalAmount
 };

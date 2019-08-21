@@ -1,20 +1,9 @@
 const { creditsCalculator } = require('./pricingCalculator.js');
-const { jobCostCalculator } = require('./pricingCalculator.js');
-const { format } = require('./pricingCalculator.js');
+const { getTotalAmount } = require('./pricingCalculator.js')
 
 function custo(companyJobs, jobs, companies) {
-    let totalAmount = 0;
     let result = `Custo das vagas para ${companies[companyJobs.companyId].subdomain}\n`;
-
-    for (let job of companyJobs.jobs) {
-        let value = 0;
-        const jobData = jobs[job.jobId];
-
-        value += jobCostCalculator(job, jobData);
-        result += `  ${jobData.name}: ${format(value / 100)} (${job.applicationCount} inscrições)\n`;
-        totalAmount += value;
-    }
-    result += `Total devido ${format(totalAmount / 100)}\n`;
+    result += getTotalAmount(companyJobs, jobs);    
     result += `Você ganhou ${creditsCalculator(companyJobs, jobs)} na Gupy\n`;
     return result;
 }
