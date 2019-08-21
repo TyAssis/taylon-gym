@@ -4,7 +4,7 @@ const { companies } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { companyJobs } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { jobs } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { creditsCalculator } = require('../gupy-pricing/pricingCalculator.js');
-const { jobCostCalculator } = require('../gupy-pricing/pricingCalculator.js');
+const { calculateJobCost } = require('../gupy-pricing/pricingCalculator.js');
 
 describe('custo', () => {
     it('ambev pricing message', () => {
@@ -55,21 +55,21 @@ describe('creditsCalculator', () => {
     });
 });
 
-describe('jobCostCalculator', () => {
-    it('jobCostCalculator should return 40000 when no applications to an effective job', () => {
-        assert.equal(jobCostCalculator({applicationCount: 0}, "effective"), 40000);
+describe('calculateJobCost', () => {
+    it('calculateJobCost should return 40000 when no applications to an effective job', () => {
+        assert.equal(calculateJobCost({applicationCount: 0}, "effective"), 40000);
      });
 
-    it('jobCostCalculator should return 30000 when no applications to a talentPool', () => {
-        assert.equal(jobCostCalculator({ applicationCount: 0 }, "talentPool"), 30000);
+    it('calculateJobCost should return 30000 when no applications to a talentPool', () => {
+        assert.equal(calculateJobCost({ applicationCount: 0 }, "talentPool"), 30000);
     });
 
-    it('jobCostCalculator should return 41000 when 31 applications to an effective job', () => {
-        assert.equal(jobCostCalculator({applicationCount: 31}, "effective"), 41000);
+    it('calculateJobCost should return 41000 when 31 applications to an effective job', () => {
+        assert.equal(calculateJobCost({applicationCount: 31}, "effective"), 41000);
      });
 
-    it('jobCostCalculator should return 46800 when 21 applications to a talentPool', () => {
-        assert.equal(jobCostCalculator({ applicationCount: 21 }, "talentPool"), 46800);
+    it('calculateJobCost should return 46800 when 21 applications to a talentPool', () => {
+        assert.equal(calculateJobCost({ applicationCount: 21 }, "talentPool"), 46800);
     });
 
 // describe('getTotalCost', () => {

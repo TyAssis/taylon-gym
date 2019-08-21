@@ -1,12 +1,37 @@
-const { creditsCalculator } = require('./pricingCalculator.js');
-const { getTotalAmount } = require('./pricingCalculator.js')
+const { getTotalAmount, getAmounts, creditsCalculator, format } = require('./pricingCalculator.js')
 
 function custo(companyJobs, jobs, companies) {
-    let result = `Custo das vagas para ${companies[companyJobs.companyId].subdomain}\n`;
-    result += getTotalAmount(companyJobs, jobs);    
-    result += `Você ganhou ${creditsCalculator(companyJobs, jobs)} na Gupy\n`;
-    return result;
+    const amounts = getAmounts(companyJobs, jobs);
+    return printTxt({
+        companySubdomain: companies[companyJobs.companyId].subdomain,
+        credits: creditsCalculator(companyJobs, jobs),
+        totalAmount: getTotalAmount(amounts),
+        amounts
+     });
 }
+
+const printAmountTxt = ({jobName, cost, applicationCount}) => 
+`  ${jobName}: ${format(cost / 100)} (${applicationCount} inscrições)`
+
+const printTxt = ({companySubdomain, credits, totalAmount, amounts }) => {
+     return `Custo das vagas para ${companySubdomain}
+${amounts.map(printAmountTxt).join('\n')}
+Total devido ${format(totalAmount / 100)}
+Você ganhou ${credits} na Gupy
+`
+}
+
+const printAmountHtml = ({jobName, cost, applicationCount}) => 
+`<li>${jobName}: ${format(cost / 100)} (${applicationCount} inscrições)</li>`
+
+const printHtml = ({companySubdomain, credits, totalAmount, amounts }) => {
+    return `<h1>Custo das vagas para ${companySubdomain}</h1>
+${amounts.map(printAmountHtml).join('')}
+Total devido <b>${format(totalAmount / 100)}</b>
+Você ganhou <b>${credits}</b> na Gupy
+`
+}
+
 
 const jobs = {
     "123": {name: "Dev Back End", type: "effective"},

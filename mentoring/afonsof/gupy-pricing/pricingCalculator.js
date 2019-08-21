@@ -1,33 +1,39 @@
-const jobCostCalculator = (job, jobType) => {
-    let value = 0;
-    switch (jobType) {
-        case "effective":
-            value = 40000;
-            if (job.applicationCount > 30) {
-                value += 1000 * (job.applicationCount - 30);
-            }
-            break;
-        case "talentPool":
-            value = 30000;
-            if (job.applicationCount > 20) {
-                value += 10000 + 500 * (job.applicationCount - 20);
-            }
-            value += 300 * job.applicationCount;
-            break;
-        default:
-            throw new Error(`unknown type: ${jobType}`);
+const calculateEffective = (job) => {
+    let value = 40000;
+    if (job.applicationCount > 30) {
+        value += 1000 * (job.applicationCount - 30);
     }
     return value;
+}
+
+const calculateTalentPool = (job) => {
+    let value = 30000;
+    if (job.applicationCount > 20) {
+        value += 10000 + 500 * (job.applicationCount - 20);
+    }
+    return value + 300 * job.applicationCount;
+}
+
+const calculatorsFunctions = {
+    effective: calculateEffective,
+    talentPool: calculateTalentPool
+}
+
+const calculateJobCost = (job, jobType) => {
+    const calculatorFunction = calculatorsFunctions[jobType];
+    if(!calculatorFunction) throw new Error(`unknown type: ${jobType}`);
+    return calculatorFunction(job);
 };
 
-const getTotalAmount = (companyJobs, jobs) => {
-    let totalAmount = 0;
+const getAmounts = (companyJobs, jobs) => {
     return Object.values(companyJobs.jobs).map(job => {
-        const values = jobCostCalculator(job, jobs[job.jobId].type);
-        totalAmount += values;
-        return `  ${jobs[job.jobId].name}: ${format(values / 100)} (${job.applicationCount} inscrições)\n`;
-    }).join('').concat(`Total devido ${format(totalAmount / 100)}\n`);
+        const cost = calculateJobCost(job, jobs[job.jobId].type);
+        return {jobName: jobs[job.jobId].name, cost, applicationCount: job.applicationCount};
+    });
+}
 
+const getTotalAmount = (amounts) => {
+    return amounts.reduce((acc,amount) => acc + amount.cost, 0);
 };
 
 const creditsCalculator = (companyJobs, jobs) => {
@@ -46,8 +52,9 @@ const format = new Intl.NumberFormat("pt-BR", {
 }).format;
 
 module.exports = {
-    jobCostCalculator,
+    calculateJobCost,
     creditsCalculator,
     format,
-    getTotalAmount
+    getTotalAmount,
+    getAmounts,
 };
