@@ -58,3 +58,7 @@ const companyJobs = [{
 }];
 
 console.log(custo(companyJobs[0], jobs, companies));
+
+module.exports = {
+    custo
+};
