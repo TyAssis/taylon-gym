@@ -1,8 +1,8 @@
-const gupyDB = require('./gupy-db');
+const gupyDB = require('./connect-gupy');
 
-gupyDB.connectGupyDB((gupy) => {
-    if(typeof(gupy) !== 'object') throw new Error('Gupy database was not instantiated');
-
+gupyDB.connectGupyDB()
+.then(client => {
+    gupy = client.db('gupy')
     const company = gupy.collection('company');
     const jobs = gupy.collection('jobs');
     const companyJobs = gupy.collection('companyJobs');
@@ -31,14 +31,14 @@ gupyDB.connectGupyDB((gupy) => {
     }, (err, result) => {
         if (err) throw err;
     });
-
-    company.find().toArray((err, items) => {
-        console.log(items)
-    })
-    jobs.find().toArray((err, items) => {
-        console.log(items)
-    })
-    companyJobs.find().toArray((err, items) => {
-        console.log(items)
-    })
-});
+})
+.catch(err => { throw err });
+    // company.find().toArray((err, items) => {
+    //     console.log(items)
+    // })
+    // jobs.find().toArray((err, items) => {
+    //     console.log(items)
+    // })
+    // companyJobs.find().toArray((err, items) => {
+    //     console.log(items)
+    // })

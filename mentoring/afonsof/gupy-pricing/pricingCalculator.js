@@ -45,16 +45,9 @@ const creditsCalculator = (companyJobs, jobs) => {
     }).reduce((acc, curr) => acc + curr);
 };
 
-const format = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2
-}).format;
-
 module.exports = {
     calculateJobCost,
     creditsCalculator,
-    format,
     getTotalAmount,
     getAmounts,
 };

@@ -1,14 +1,17 @@
 const { assert } = require('chai');
-const { custo } = require('../gupy-pricing/gupyPricingRefactored.js');
+const { calculatePricingData } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { companies } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { companyJobs } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { jobs } = require('../gupy-pricing/gupyPricingRefactored.js');
 const { creditsCalculator } = require('../gupy-pricing/pricingCalculator.js');
 const { calculateJobCost } = require('../gupy-pricing/pricingCalculator.js');
+const { getJobs } = require('../gupy-pricing/database/get-document.js');
+const { printTxt } = require('../gupy-pricing/output/printer.js')
 
-describe('custo', () => {
+describe('calculatePricingData', () => {
     it('ambev pricing message', () => {
-		assert.equal(custo(companyJobs[0], jobs, companies), 'Custo das vagas para ambev\n  Dev Back End: R$650.00 (55 inscrições)\n  Banco de Talentos: R$580.00 (35 inscrições)\n  Dev Front End: R$500.00 (40 inscrições)\nTotal devido R$1,730.00\nVocê ganhou 47 na Gupy\n');
+        const pricingData = calculatePricingData(companyJobs[0], jobs, companies);
+		assert.equal(printTxt(pricingData), 'Custo das vagas para ambev\n  Dev Back End: R$650.00 (55 inscrições)\n  Banco de Talentos: R$580.00 (35 inscrições)\n  Dev Front End: R$500.00 (40 inscrições)\nTotal devido R$1,730.00\nVocê ganhou 47 na Gupy\n');
     });
 });
 
@@ -71,9 +74,5 @@ describe('calculateJobCost', () => {
     it('calculateJobCost should return 46800 when 21 applications to a talentPool', () => {
         assert.equal(calculateJobCost({ applicationCount: 21 }, "talentPool"), 46800);
     });
-
-// describe('getTotalCost', () => {
-//     it('getTotalCost should return ')
-// });
 
 });

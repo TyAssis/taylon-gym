@@ -1,6 +1,8 @@
-const gupyDB = require('./gupy-db');
+const gupyDB = require('./connect-gupy');
 
-gupyDB.connectGupyDB((gupy) => {
-    if(typeof(gupy) !== 'object') throw new Error('Gupy database was not instantiated');
+gupyDB.connectGupyDB()
+.then(client => {
+    gupy = client.db('gupy');
     gupy.dropDatabase();
-});
+})
+.catch(err => { throw err });
