@@ -1,10 +1,8 @@
 const { assert } = require('chai');
-const { calculatePricingData } = require('../gupy-pricing/gupyPricingRefactored.js');
-const { companies } = require('../gupy-pricing/gupyPricingRefactored.js');
-const { companyJobs } = require('../gupy-pricing/gupyPricingRefactored.js');
-const { jobs } = require('../gupy-pricing/gupyPricingRefactored.js');
-const { creditsCalculator } = require('../gupy-pricing/pricingCalculator.js');
-const { calculateJobCost } = require('../gupy-pricing/pricingCalculator.js');
+const { calculatePricingData } = require('../gupy-pricing/gupyPricing.js');
+const { companyJobs, jobs, companies } = require('../gupy-pricing/fake-database/fake-data.js');
+const { creditsCalculator } = require('../gupy-pricing/calculators/creditsCalculator.js');
+const { calculateJobCost } = require('../gupy-pricing/calculators/costCalculator.js');
 const { getJobs } = require('../gupy-pricing/database/get-document.js');
 const { printTxt } = require('../gupy-pricing/output/printer.js')
 
