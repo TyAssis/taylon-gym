@@ -3,11 +3,11 @@ const gupyDB = require('./connect-gupy');
 gupyDB.connectGupyDB()
 .then(client => {
     gupy = client.db('gupy')
-    const company = gupy.collection('company');
+    const companies = gupy.collection('companies');
     const jobs = gupy.collection('jobs');
     const companyJobs = gupy.collection('companyJobs');
 
-    company.insertOne({
+    companies.insertOne({
         _id: 119, subdomain: 'ambev'
     }, (err, result) => {
         if (err) throw err;

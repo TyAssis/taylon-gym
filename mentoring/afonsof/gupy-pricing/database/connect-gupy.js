@@ -10,7 +10,10 @@ const connectGupyDB = () => {
         }
         const options = { useNewUrlParser: true, useUnifiedTopology: true };
         mongo.connect(CONNECTION_STRING, options, (err, client) => {
-            if (err) throw reject(err);
+            if (err) {
+                reject(err);
+                return;
+            }
             connection = client;
             resolve(connection);
         });

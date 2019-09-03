@@ -5,6 +5,7 @@ const { companyJobs, jobs, companies } = require('../gupy-pricing/fake-database/
 
 function calculatePricingData(companyJobs, jobs, companies) {
     const amounts = getAmounts(companyJobs, jobs);
+
     return {
         companySubdomain: companies[companyJobs.companyId].subdomain,
         credits: creditsCalculator(companyJobs, jobs),
