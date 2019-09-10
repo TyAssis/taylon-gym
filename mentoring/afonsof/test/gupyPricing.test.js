@@ -3,7 +3,9 @@ const { calculatePricingData } = require('../gupy-pricing/gupyPricing.js');
 const { companyJobs, jobs, companies } = require('../gupy-pricing/fake-database/fake-data.js');
 const { creditsCalculator } = require('../gupy-pricing/calculators/creditsCalculator.js');
 const { calculateJobCost } = require('../gupy-pricing/calculators/costCalculator.js');
-const { getJobsDTO, getCompanyJobsDTO, getCompanyDTO } = require('../gupy-pricing/database/get-document.js');
+const getCompanyDTO = require('../gupy-pricing/dto/getCompanyDTO.js');
+const getJobsDTO = require('../gupy-pricing/dto/getJobsDTO.js');
+const getCompanyJobsDTO = require('../gupy-pricing/dto/getCompanyJobsDTO.js');
 const { printTxt } = require('../gupy-pricing/output/printer.js')
 
 describe('calculatePricingData', () => {
