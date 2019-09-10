@@ -14,7 +14,7 @@ const connectGupyDB = () => {
                 reject(err);
                 return;
             }
-            connection = client;
+            connection = client.db('gupy');
             resolve(connection);
         });
     });
