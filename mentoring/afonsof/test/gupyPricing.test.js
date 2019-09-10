@@ -3,14 +3,14 @@ const { calculatePricingData } = require('../gupy-pricing/gupyPricing.js');
 const { companyJobs, jobs, companies } = require('../gupy-pricing/fake-database/fake-data.js');
 const { creditsCalculator } = require('../gupy-pricing/calculators/creditsCalculator.js');
 const { calculateJobCost } = require('../gupy-pricing/calculators/costCalculator.js');
-const { getJobsDTO, getCompanyJobsDTO, getCompaniesDTO } = require('../gupy-pricing/database/get-document.js');
+const { getJobsDTO, getCompanyJobsDTO, getCompanyDTO } = require('../gupy-pricing/database/get-document.js');
 const { printTxt } = require('../gupy-pricing/output/printer.js')
 
 describe('calculatePricingData', () => {
     it('ambev pricing message', async () => {
-        const jobs = await getJobsDTO();
-        const companyJobs = await getCompanyJobsDTO();
-        const companies = await getCompaniesDTO();
+        const companies = await getCompanyDTO('ambev');
+        const companyJobs = await getCompanyJobsDTO(Object.keys(companies)[0]);
+        const jobs = await getJobsDTO(Object.values(companyJobs[0].jobs).map(job => job.jobId));
         const pricingData = calculatePricingData(companyJobs[0], jobs, companies);
 
 		assert.equal(printTxt(pricingData), 'Custo das vagas para ambev\n  Dev Back End: R$650.00 (55 inscrições)\n  Banco de Talentos: R$580.00 (35 inscrições)\n  Dev Front End: R$500.00 (40 inscrições)\nTotal devido R$1,730.00\nVocê ganhou 47 na Gupy\n');
