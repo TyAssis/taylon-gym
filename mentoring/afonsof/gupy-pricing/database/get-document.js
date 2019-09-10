@@ -21,9 +21,6 @@ const getCompanies = () => {
     return getDocument('companies');
 }
 
-
-////////////////////////////////////////////
-
 const getJobsDTO = async () => {
     const jobs = await getJobs();
     return jobs.reduce((acc, cur) => {
