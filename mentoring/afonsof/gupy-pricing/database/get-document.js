@@ -1,13 +1,16 @@
 const gupyDB = require('./connect-gupy');
 
-const getDocument = (collection, query_object) => {
-    return new Promise((resolve, reject) => {
-        gupyDB.connectGupyDB().then(gupy => {
-            resolve(gupy.collection(collection).find(query_object).toArray());
-        });
-    })
+const getConnection = async () => {
+    return await gupyDB.getDatabaseConnection();
+};
+
+const getDocuments = async (collection, query_object) => {
+    return (await getConnection()).collection(collection).find(query_object).toArray();
 }
 
+const getDocument = async (collection, query_object) => {
+    return (await getConnection()).collection(collection).findOne(query_object);
+}
 
 // Q: Não sei o nome dessas funções, DAO?
 const getCompany = (subdomain) => {
@@ -15,11 +18,11 @@ const getCompany = (subdomain) => {
 }
 
 const getJobs = (job_ids) => {
-    return getDocument('jobs', {_id: {$in: job_ids} });
+    return getDocuments('jobs', {_id: {$in: job_ids} });
 } 
 
 const getCompanyJobs = (company_id) => {
-    return getDocument('companyJobs', {companyId: parseInt(company_id)});
+    return getDocuments('companyJobs', {companyId: parseInt(company_id)});
 }
 
 module.exports = {

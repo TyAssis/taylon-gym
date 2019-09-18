@@ -1,11 +1,10 @@
 const { getCompany } = require('../database/get-document.js');
 
 const getCompanyDTO = async (subdomain) => {
-    const companies = await getCompany(subdomain);
-    return companies.reduce((acc, cur) => {
-        acc[cur._id] = { subdomain: cur.subdomain }
-        return acc;
-    }, {})
+    const company = await getCompany(subdomain);
+    return {
+        [company._id]: { subdomain: company.subdomain }
+    }
 }
 
 module.exports = getCompanyDTO;

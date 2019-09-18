@@ -3,7 +3,7 @@ const mongo = require('mongodb').MongoClient;
 const CONNECTION_STRING = 'mongodb://localhost:27017';
 let connection;
 
-const connectGupyDB = () => {
+const getDatabaseConnection = () => {
     return new Promise((resolve, reject) => {
         if (connection) {
             resolve(connection);
@@ -21,5 +21,5 @@ const connectGupyDB = () => {
 };
 
 module.exports = {
-    connectGupyDB
+    getDatabaseConnection
 }
