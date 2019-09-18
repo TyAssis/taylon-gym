@@ -1,44 +1,36 @@
 const gupyDB = require('./connect-gupy');
+const Companies = require('./models/companiesModel.js');
+const Jobs = require('./models/jobsModel.js');
+const CompanyJobs = require('./models/companyJobsModel.js');
 
-gupyDB.connectGupyDB()
-.then(client => {
-    gupy = client.db('gupy')
-    const companies = gupy.collection('companies');
-    const jobs = gupy.collection('jobs');
-    const companyJobs = gupy.collection('companyJobs');
+(async () => {
+    const ambev = new Companies({ subdomain: 'ambev' });
 
-    companies.insertOne({
-        _id: 119, subdomain: 'ambev'
-    }, (err, result) => {
-        if (err) throw err;
+    const ambevJobs = [
+        { insertOne: { document: { name: "Dev Back End", type: "effective" }}},
+        { insertOne: { document: { name: "Banco de Talentos", type: "talentPool" }}},
+        { insertOne: { document: { name: "Dev Front End", type: "effective" }}}
+    ];
+
+    const ambevDoc = await ambev.save();
+    const ambevId = ambevDoc._id;
+    const ambevJobsDoc = await Jobs.bulkWrite(ambevJobs);
+    const ambevJobsIds = Object.values(ambevJobsDoc.insertedIds).map(val => val);
+
+    const ambevCompanyJobs = ambevJobsIds.map(val => {
+        return {
+            insertOne: {
+                document: {
+                    companyId: ambevId,
+                    jobs: {
+                        jobId: val,
+                        applicationCount: Math.random() * (100 - 1) + 1
+                    }
+                }
+            }
+        }
     });
 
-    jobs.insertMany([
-        {_id: 123, name: "Dev Back End", type: "effective"},
-        {_id: 456, name: "Banco de Talentos", type: "talentPool"},
-        {_id: 789, name: "Dev Front End", type: "effective"}
-    ], (err, result) => {
-        if (err) throw err;   
-    });
+    const ambevCompanyJobsDoc = await CompanyJobs.bulkWrite(ambevCompanyJobs);
 
-    companyJobs.insertOne({
-        companyId: 119,
-        jobs: [
-            { jobId: 123, applicationCount: 55 },
-            { jobId: 456, applicationCount: 35 },
-            { jobId: 789, applicationCount: 40 }
-        ]
-    }, (err, result) => {
-        if (err) throw err;
-    });
-})
-.catch(err => { throw err });
-    // company.find().toArray((err, items) => {
-    //     console.log(items)
-    // })
-    // jobs.find().toArray((err, items) => {
-    //     console.log(items)
-    // })
-    // companyJobs.find().toArray((err, items) => {
-    //     console.log(items)
-    // })
+})();

@@ -1,25 +1,18 @@
-const mongo = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
-const CONNECTION_STRING = 'mongodb://localhost:27017';
-let connection;
+mongoose.Promise = global.Promise;
+gupyDBURI = 'mongodb://localhost:27017/gupy'
+mongoose.connect(gupyDBURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const getDatabaseConnection = () => {
-    return new Promise((resolve, reject) => {
-        if (connection) {
-            resolve(connection);
-        }
-        const options = { useNewUrlParser: true, useUnifiedTopology: true };
-        mongo.connect(CONNECTION_STRING, options, (err, client) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            connection = client.db('gupy');
-            resolve(connection);
-        });
-    });
-};
+mongoose.connection.on('connected', () => {
+     mongoose.connection.db.dropDatabase(); // Q: Como dropo isso em outro lugar?
+    console.log('Mongoose default connection open to ' + gupyDBURI);
+});
 
-module.exports = {
-    getDatabaseConnection
-}
+mongoose.connection.on('error',  (err) => {
+    console.log('Mongoose default connection error: ' + err);
+});
+
+mongoose.connection.on('disconnected',  () => {
+    console.log('Mongoose default connection disconnected');
+});
