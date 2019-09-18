@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-gupyDBURI = 'mongodb://localhost:27017/gupy'
+const gupyDBURI = 'mongodb://localhost:27017/gupy';
 mongoose.connect(gupyDBURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on('connected', () => {
-     mongoose.connection.db.dropDatabase(); // Q: Como dropo isso em outro lugar?
+    //mongoose.connection.db.dropDatabase(); // Q: Como dropo isso em outro lugar?
     console.log('Mongoose default connection open to ' + gupyDBURI);
 });
 

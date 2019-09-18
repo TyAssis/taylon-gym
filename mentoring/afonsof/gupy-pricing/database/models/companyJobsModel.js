@@ -10,6 +10,6 @@ const CompaniesJobsSchema = new Schema({
     }
 });
 
-const CompaniesJobs = mongoose.model('CompaniesJobs', CompaniesJobsSchema);
+const CompaniesJobs = mongoose.model('CompanyJobs', CompaniesJobsSchema);
 
 module.exports = CompaniesJobs;

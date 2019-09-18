@@ -1,15 +1,21 @@
-const gupyDB = require('./connect-gupy');
+const gupyDB = require('../database/connect-gupy'); // Q: Porque chamar conexão?
+const Companies = require('../database/models/companiesModel.js');
+const Jobs = require('../database/models/jobsModel.js');
+const CompanyJobs = require('../database/models/companyJobsModel.js');
 
-const getConnection = async () => {
-    return await gupyDB.getDatabaseConnection();
-};
+const models = {
+    companies: Companies,
+    jobs: Jobs,
+    companyJobs: CompanyJobs 
+}
 
 const getDocuments = async (collection, query_object) => {
+    return await models[collection].findOne({query_object});
     return (await getConnection()).collection(collection).find(query_object).toArray();
 }
 
 const getDocument = async (collection, query_object) => {
-    return (await getConnection()).collection(collection).findOne(query_object);
+    return await models[collection].findOne(query_object);
 }
 
 // Q: Não sei o nome dessas funções, DAO?
