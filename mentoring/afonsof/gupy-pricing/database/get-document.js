@@ -10,7 +10,7 @@ const models = {
 }
 
 const getDocuments = async (collection, query_object) => {
-    return await models[collection].findOne({query_object});
+    return await models[collection].find(query_object);
     return (await getConnection()).collection(collection).find(query_object).toArray();
 }
 
@@ -28,7 +28,7 @@ const getJobs = (job_ids) => {
 } 
 
 const getCompanyJobs = (company_id) => {
-    return getDocuments('companyJobs', {companyId: parseInt(company_id)});
+    return getDocuments('companyJobs', {companyId: company_id});
 }
 
 module.exports = {

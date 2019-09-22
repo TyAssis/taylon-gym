@@ -1,8 +1,7 @@
 const { getCompany } = require('../database/get-document.js');
 
 const getCompanyDTO = async (subdomain) => {
-    const company = await getCompany(subdomain);
-    return company;
+    return await getCompany(subdomain);
 }
 
 module.exports = getCompanyDTO;

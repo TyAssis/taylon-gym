@@ -11,7 +11,7 @@ const { printTxt } = require('../gupy-pricing/output/printer.js')
 describe('calculatePricingData', () => {
     it('ambev pricing message', async () => {
         const companies = await getCompanyDTO('ambev');
-        const companyJobs = await getCompanyJobsDTO(Object.keys(companies)[0]);
+        const companyJobs = await getCompanyJobsDTO(companies.id);
         const jobs = await getJobsDTO(Object.values(companyJobs[0].jobs).map(job => job.jobId));
         const pricingData = calculatePricingData(companyJobs[0], jobs, companies);
 
