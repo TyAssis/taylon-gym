@@ -4,6 +4,7 @@ const getCompanyJobsDTO = require('../gupy-pricing/dto/getCompanyJobsDTO.js');
 const getJobsDTO = require('../gupy-pricing/dto/getJobsDTO.js');
 const mongoose = require('mongoose');
 const { insertCompany, insertJob, insertCompanyJob } = require('../gupy-pricing/database/insertDocument.js');
+const { updateJob, updateCompany, updateCompanyJob } = require('../gupy-pricing/database/updateDocument.js');
 
 describe('database query functions', () => {
     it('ambev subdomain should return ambev document', async () => {
@@ -36,7 +37,7 @@ describe('database query functions', () => {
     });
 });
 
-describe('database writing functions', () => {
+describe('database insert functions', () => {
     it('insertCompany should return a new company document', async () => {
         const insertedCompany = await insertCompany('sicredi');
         assert(!insertedCompany.isNew);
@@ -53,7 +54,34 @@ describe('database writing functions', () => {
         const insertedCompanyJob = await insertCompanyJob(insertedCompany.id, insertedJob.id);
         assert(!insertedCompanyJob.isNew);
     });
-})
+});
+
+describe('database update functions', () => {
+    let insertedJob, insertedCompany, insertedCompanyJob;
+    before(async () => {
+        insertedJob = await insertJob('Lawyer', 'talentPool');
+        insertedCompany = await insertCompany('b2w');
+        insertedCompanyJob = await insertCompanyJob(insertedCompany.id, insertedJob.id);
+    }); 
+    
+    it('updateJob should update a job document using its ObjectId', async () => {
+        // Q: callback == Promise?
+        const job = await updateJob(insertedJob.id, {name: 'Criminal Lawyer', type: 'effective'});
+        assert(job.name, 'Criminal Lawyer'); 
+        assert(job.type, 'effective');
+    });
+
+    it('updateCompany should update a company document using its ObjectId', async () => {
+        // Q: callback == Promise?
+        const company = await updateCompany(insertedCompany.id, {subdomain: 'b2wdigital'});
+        assert(company.subdomain, 'b2wdigital');  
+    });
+
+    it('updateCompanyJob should update a companyJob document using its ObjectId', async () => {
+        const companyJob = await updateCompanyJob(insertedCompanyJob.id, {$set: {'jobs.applicationCount': 10}});
+        assert(companyJob.jobs.applicationCount, 10); 
+    });
+});
 
 
 // Q: comecei com R, deveria ter começado com C para testar tudo?!
