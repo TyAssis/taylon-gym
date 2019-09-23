@@ -1,8 +1,10 @@
 const creditsCalculator = (companyJobs, jobs) => {
-    return Object.values(companyJobs.jobs).map(job => {
-        let volumeCredits = Math.max(job.applicationCount - 30, 0);
-        if ("talentPool" === jobs[job.jobId].type) 
-            volumeCredits += Math.floor(job.applicationCount / 5);
+    return companyJobs.map(companyJob => {
+        let volumeCredits = Math.max(companyJob.jobs.applicationCount - 30, 0);
+        const jobId = companyJob.jobs.jobId;
+        const job = jobs.find(job => job.id === jobId); 
+        if ("talentPool" === job.type)
+            volumeCredits += Math.floor(companyJob.jobs.applicationCount / 5);
         return volumeCredits
     }).reduce((acc, curr) => acc + curr);
 };
