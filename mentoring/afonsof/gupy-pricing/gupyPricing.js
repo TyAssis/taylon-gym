@@ -6,7 +6,7 @@ function calculatePricingData(companyJobs, jobs, companies) {
     const companyPricingData = getCompanyPricingData(companyJobs, jobs);
 
     return {
-        companySubdomain: companies[companyJobs.companyId].subdomain,
+        companySubdomain: companies.subdomain,
         credits: creditsCalculator(companyJobs, jobs),
         totalAmount: getTotalAmount(companyPricingData),
         companyPricingData

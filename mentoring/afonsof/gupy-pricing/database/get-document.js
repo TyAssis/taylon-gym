@@ -11,7 +11,6 @@ const models = {
 
 const getDocuments = async (collection, query_object) => {
     return await models[collection].find(query_object);
-    return (await getConnection()).collection(collection).find(query_object).toArray();
 }
 
 const getDocument = async (collection, query_object) => {

@@ -7,6 +7,7 @@ const getCompanyDTO = require('../gupy-pricing/dto/getCompanyDTO.js');
 const getJobsDTO = require('../gupy-pricing/dto/getJobsDTO.js');
 const getCompanyJobsDTO = require('../gupy-pricing/dto/getCompanyJobsDTO.js');
 const { printTxt } = require('../gupy-pricing/output/printer.js')
+const { getCompanyPricingData } = require('../gupy-pricing/calculators/amountCalculators');
 
 describe('calculatePricingData', () => {
     it('ambev pricing message', async () => {
@@ -79,5 +80,27 @@ describe('calculateJobCost', () => {
     it('calculateJobCost should return 46800 when 21 applications to a talentPool', () => {
         assert.equal(calculateJobCost({ applicationCount: 21 }, "talentPool"), 46800);
     });
+});
 
+describe('getCompanyPricingData', () => {
+    // TODO: lidar com essas variáveis
+    const companyJobsTest = [{
+        id: '1111',
+        companyId: '119',
+        jobs: {
+            jobId: 123, applicationCount: 31
+        }
+    }];
+
+    const jobsTest = [{id: 123, name: "Dev Back End", type: "effective"}];
+    // Q: pode testar só um? [0]
+    it('getCompanyPricingData should return a proper JSON', () => {
+        const pricingData = getCompanyPricingData(companyJobsTest, jobsTest);
+        assert.property(pricingData[0], 'jobName');
+        assert.property(pricingData[0], 'cost');
+        assert.property(pricingData[0], 'applicationCount');
+        assert.propertyVal(pricingData[0], 'jobName', 'Dev Back End');
+        assert.propertyVal(pricingData[0], 'cost', 41000);
+        assert.propertyVal(pricingData[0], 'applicationCount', 31);
+    });
 });
