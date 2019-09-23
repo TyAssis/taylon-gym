@@ -3,6 +3,7 @@ const getCompanyDTO = require('../gupy-pricing/dto/getCompanyDTO.js');
 const getCompanyJobsDTO = require('../gupy-pricing/dto/getCompanyJobsDTO.js');
 const getJobsDTO = require('../gupy-pricing/dto/getJobsDTO.js');
 const mongoose = require('mongoose');
+const { insertCompany, insertJob, insertCompanyJob } = require('../gupy-pricing/database/insertDocument.js');
 
 describe('database query functions', () => {
     it('ambev subdomain should return ambev document', async () => {
@@ -34,6 +35,25 @@ describe('database query functions', () => {
         assert.typeOf(job.name, 'string');
     });
 });
+
+describe('database writing functions', () => {
+    it('insertCompany should return a new company document', async () => {
+        const insertedCompany = await insertCompany('sicredi');
+        assert(!insertedCompany.isNew);
+    });
+
+    it('insertJobs should return a new job document', async () => {
+        const insertedJob = await insertJob('Support Analyst', 'effective');
+        assert(!insertedJob.isNew);
+    });
+
+    it('insertCompany should return a new companyJob document', async () => {
+        const insertedJob = await insertJob('Human Resources Internship', 'talentPool');
+        const insertedCompany = await insertCompany('lasa');
+        const insertedCompanyJob = await insertCompanyJob(insertedCompany.id, insertedJob.id);
+        assert(!insertedCompanyJob.isNew);
+    });
+})
 
 
 // Q: comecei com R, deveria ter começado com C para testar tudo?!

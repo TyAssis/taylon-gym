@@ -9,6 +9,7 @@ const models = {
     companyJobs: CompanyJobs 
 }
 
+// Q: await aqui e na chamada também??
 const getDocuments = async (collection, query_object) => {
     return await models[collection].find(query_object);
 }
