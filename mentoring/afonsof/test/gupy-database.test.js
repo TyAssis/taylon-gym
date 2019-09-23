@@ -5,6 +5,8 @@ const getJobsDTO = require('../gupy-pricing/dto/getJobsDTO.js');
 const mongoose = require('mongoose');
 const { insertCompany, insertJob, insertCompanyJob } = require('../gupy-pricing/database/insertDocument.js');
 const { updateJob, updateCompany, updateCompanyJob } = require('../gupy-pricing/database/updateDocument.js');
+const { deleteJob, deleteCompany, deleteCompanyJob } = require('../gupy-pricing/database/deleteDocument.js');
+
 
 describe('database query functions', () => {
     it('ambev subdomain should return ambev document', async () => {
@@ -82,6 +84,33 @@ describe('database update functions', () => {
         assert(companyJob.jobs.applicationCount, 10); 
     });
 });
+
+describe('database delete functions', () => {
+    let insertedJob, insertedCompany, insertedCompanyJob;
+    before(async () => {
+        insertedJob = await insertJob('Barman', 'talentPool');
+        insertedCompany = await insertCompany('gpa');
+        insertedCompanyJob = await insertCompanyJob(insertedCompany.id, insertedJob.id);
+    }); 
+    it('deleteJob should delete a job document using its ObjectId', async () => {
+        const job = await deleteJob(insertedJob.id);
+        const deletedJobs = await getJobsDTO(job.id);
+        assert.equal(deletedJobs.length === 0, true);
+    });
+
+    it('deleteCompany should delete a company document using its ObjectId', async () => {
+        const company = await deleteCompany(insertedCompany.id);
+        const deletedCompany = await getCompanyDTO(company.subdomain);
+        assert.equal(deletedCompany === null, true);
+    });
+
+    it('deleteCompanyJob should delete a companyJob document using its ObjectId', async () => {
+        const companyJob = await deleteCompanyJob(insertedCompanyJob.id);
+        //const deletedCompanyJob = await getCompanyJobsDTO(company.subdomain); // TODO: não há busca pelo companyJob
+        assert.equal(mongoose.Types.ObjectId.isValid(companyJob.id), true)
+    });
+
+})
 
 
 // Q: comecei com R, deveria ter começado com C para testar tudo?!
