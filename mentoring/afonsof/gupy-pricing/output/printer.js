@@ -6,7 +6,7 @@ const printAmountTxt = ({ jobName, cost, applicationCount }) =>
 const printTxt = ({ companySubdomain, credits, totalAmount, companyPricingData }) => {
     return `Custo das vagas para ${companySubdomain}
 ${companyPricingData.map(printAmountTxt).join('\n')}
-Total devido ${formatBRL(totalAmount / 100)}
+  Total devido ${formatBRL(totalAmount / 100)}
 Você ganhou ${credits} na Gupy
 `
 };

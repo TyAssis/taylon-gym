@@ -8,6 +8,7 @@ const getJobsDTO = require('../gupy-pricing/dto/getJobsDTO.js');
 const getCompanyJobsDTO = require('../gupy-pricing/dto/getCompanyJobsDTO.js');
 const { printTxt } = require('../gupy-pricing/output/printer.js')
 const { getCompanyPricingData } = require('../gupy-pricing/calculators/amountCalculators');
+const { formatBRL } = require('../gupy-pricing/utils/format-currency.js');
 
 describe('calculatePricingData', () => {
     it('ambev pricing message', async () => {
@@ -17,7 +18,7 @@ describe('calculatePricingData', () => {
         const jobs = await getJobsDTO(jobsIds);
         const pricingData = calculatePricingData(companyJobs, jobs, companies);
 
-		assert.equal(printTxt(pricingData), 'Custo das vagas para ambev\n  Dev Back End: R$650.00 (55 inscrições)\n  Banco de Talentos: R$580.00 (35 inscrições)\n  Dev Front End: R$500.00 (40 inscrições)\nTotal devido R$1,730.00\nVocê ganhou 47 na Gupy\n');
+		assert.equal(printTxt(pricingData), `Custo das vagas para ${pricingData.companySubdomain}\n  ${pricingData.companyPricingData.reduce((acc, data) => acc += `${data.jobName}: ${formatBRL(data.cost / 100)} (${data.applicationCount} inscrições)\n  `, ``)}Total devido ${formatBRL(pricingData.totalAmount / 100)}\nVocê ganhou ${pricingData.credits} na Gupy\n`);
     });
 });
 
