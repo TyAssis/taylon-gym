@@ -24,7 +24,7 @@ const CompanyJobs = require('./models/companyJobsModel.js');
                     companyId: ambevId,
                     jobs: {
                         jobId: val,
-                        applicationCount: Math.random() * (100 - 1) + 1
+                        applicationCount: Math.round(Math.random() * (100 - 1) + 1)
                     }
                 }
             }
