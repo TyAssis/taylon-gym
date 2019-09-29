@@ -19,6 +19,7 @@ const calculatorsFunctions = {
     talentPool: calculateTalentPool
 }
 
+// Q: isso passa no teste, atual, mas e com o mongo? Preciso refatorar...?
 const calculateJobCost = (job, jobType) => {
     const calculatorFunction = calculatorsFunctions[jobType];
     if(!calculatorFunction) throw new Error(`unknown type: ${jobType}`);

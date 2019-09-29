@@ -1,54 +1,38 @@
-const gupyDB = require('./connect-gupy');
+const gupyDB = require('../database/connect-gupy'); // Q: Porque chamar conexão?
+const Companies = require('../database/models/companiesModel.js');
+const Jobs = require('../database/models/jobsModel.js');
+const CompanyJobs = require('../database/models/companyJobsModel.js');
 
-const getDocument = (document) => {
-    return new Promise((resolve, reject) => {
-        gupyDB.connectGupyDB().then(client => {
-            gupy = client.db('gupy');
-            resolve(gupy.collection(document).find({}).toArray());
-        });
-    })
+const models = {
+    companies: Companies,
+    jobs: Jobs,
+    companyJobs: CompanyJobs 
 }
 
-const getJobs = () => {
-    return getDocument('jobs');
+// Q: await aqui e na chamada também??
+const getDocuments = async (collection, query_object) => {
+    return await models[collection].find(query_object);
+}
+
+const getDocument = async (collection, query_object) => {
+    return await models[collection].findOne(query_object);
+}
+
+// Q: Não sei o nome dessas funções, DAO?
+const getCompany = (subdomain) => {
+    return getDocument('companies', {'subdomain': subdomain});
+}
+
+const getJobs = (job_ids) => {
+    return getDocuments('jobs', {_id: {$in: job_ids} });
 } 
 
-const getCompanyJobs = () => {
-    return getDocument('companyJobs');
-}
-
-const getCompanies = () => {
-    return getDocument('companies');
-}
-
-
-////////////////////////////////////////////
-
-const getJobsDTO = async () => {
-    const jobs = await getJobs();
-    return jobs.reduce((acc, cur) => {
-        acc[cur._id] = { name: cur.name, type: cur.type}
-        return acc;
-    }, {});
-};
-
-const getCompanyJobsDTO = async () => {
-    return getCompanyJobs();
-};
-
-const getCompaniesDTO = async () => {
-    const companies = await getCompanies();
-    return companies.reduce((acc, cur) => {
-        acc[cur._id] = { subdomain: cur.subdomain }
-        return acc;
-    }, {})
+const getCompanyJobs = (company_id) => {
+    return getDocuments('companyJobs', {companyId: company_id});
 }
 
 module.exports = {
     getJobs,
     getCompanyJobs,
-    getCompanies,
-    getJobsDTO,
-    getCompanyJobsDTO,
-    getCompaniesDTO
+    getCompany
 }
