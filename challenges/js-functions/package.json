@@ -1,0 +1,16 @@
+{
+  "name": "js-functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wrong-functions.js",
+  "dependencies": {
+    "jest": "^27.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
