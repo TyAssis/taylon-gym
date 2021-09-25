@@ -1,4 +1,11 @@
 terraform {
+  backend "remote" {
+    organization = "tyassis"
+    workspaces {
+      name = "taylon-gym"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
