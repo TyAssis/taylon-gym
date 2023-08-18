@@ -23,9 +23,7 @@ test('2', () => {
     };
 
     // function call
-    const num1 = 4;
-    const num2 = 2;
-    const result = divide(num1, num2);
+    const result = divide(4, 2);
 
     // test to pass
     expect(result).toBe(2);
@@ -33,14 +31,14 @@ test('2', () => {
 
 test('3', () => {
     // function declaration
-    function divide(num1, num2) { 
+    function divide2(num1, num2) { 
         return num1 / num2; 
     };
 
     // function call
     const num1 = 4;
     const num2 = 2;
-    const result = divide(num2, num1);
+    const result = divide2(num2, num1);
 
     // test to pass
     expect(result).toBe(2);
@@ -61,9 +59,9 @@ test('4', () => {
     expect(result).toBe(9);
 });
 
-test('4', () => {
+test('5', () => {
     // function declaration
-    const times = (num1, num2) => num1 * num2; 
+    const times = (num1 * num2); 
     
 
     // function call
