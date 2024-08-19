@@ -12,6 +12,7 @@ env:
 jobs:
   getEnvVar:
     name: Get environment variable
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - name: get var
