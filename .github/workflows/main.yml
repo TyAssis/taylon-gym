@@ -1,0 +1,15 @@
+name: Test Environment Variable
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - test
+
+jobs:
+  getEnvVar:
+    name: Get environment variable
+    runs-on: ubuntu-latest
+    steps:
+      - name: get var
+        run: echo "vars.TEST"
