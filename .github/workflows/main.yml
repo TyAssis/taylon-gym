@@ -6,10 +6,13 @@ on:
     branches:
     - test
 
+env:
+  test: ${{ vars.TEST }}
+
 jobs:
   getEnvVar:
     name: Get environment variable
     runs-on: ubuntu-latest
     steps:
       - name: get var
-        run: echo "$TEST"
+        run: echo "$test"
