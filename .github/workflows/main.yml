@@ -8,6 +8,7 @@ on:
 
 env:
   test: ${{ vars.TEST }}
+  ax: ${{ github.actor }}
 
 jobs:
   getEnvVar:
@@ -17,3 +18,7 @@ jobs:
     steps:
       - name: get var
         run: echo "$test"
+      - name: actor
+        run: echo "${{ github.actor }}"
+      - name: ax
+        run: echo $ax
