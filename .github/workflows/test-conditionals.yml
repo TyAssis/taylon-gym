@@ -19,3 +19,7 @@ jobs:
     needs: job1
     if: always()
     uses: ./.github/workflows/reusable-workflow.yml
+
+  job3:
+    needs: job1
+    uses: ./.github/workflows/reusable-workflow.yml
