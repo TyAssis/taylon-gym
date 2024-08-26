@@ -9,5 +9,7 @@ jobs:
     steps:
       - name: Reusable workflow step
         run: echo "This is a step in the reusable workflow."
-      - name: Get Context
+      - name: Get Job
         run: echo "${{ github.job }}"
+      - name: Get Workflow
+        run: echo "${{ github.workflow }}"
