@@ -1,0 +1,12 @@
+name: Get Context
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - test
+
+jobs:
+  get-context:
+    uses: ./.github/workflows/reusable-workflow.yml
+  
