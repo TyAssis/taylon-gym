@@ -1,0 +1,24 @@
+name: Test Environment Variable
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - test
+
+env:
+  test: ${{ vars.TEST }}
+  ax: ${{ github.actor }}
+
+jobs:
+  getEnvVar:
+    name: Get environment variable
+    environment: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: get var
+        run: echo "$test"
+      - name: actor
+        run: echo "${{ github.actor }}"
+      - name: ax
+        run: echo $ax

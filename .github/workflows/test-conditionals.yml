@@ -1,0 +1,25 @@
+name: Test Conditionals
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - test
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "This job might fail"
+      - name: Failing step
+        run: exit 1
+
+  job2:
+    needs: job1
+    if: ${{ always() }}
+    uses: ./.github/workflows/reusable-workflow.yml
+
+  job3:
+    needs: job1
+    uses: ./.github/workflows/reusable-workflow.yml

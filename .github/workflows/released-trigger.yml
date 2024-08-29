@@ -1,0 +1,12 @@
+name: Released Trigger
+
+on:
+  release:
+    types:
+    - released
+
+jobs:
+  released:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "released"
