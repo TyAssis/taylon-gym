@@ -9,4 +9,5 @@ jobs:
   released:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "released"
+    - name: Released
+      run: echo "released"
