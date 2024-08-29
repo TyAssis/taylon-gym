@@ -9,4 +9,5 @@ jobs:
   published:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "published"
+    - name: Published
+      run: echo "published"
