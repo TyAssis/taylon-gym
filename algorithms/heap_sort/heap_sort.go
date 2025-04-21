@@ -1,28 +1,28 @@
-package sort
+package heapsort
 
 type MinHeap struct {
-  slice []int
+  Slice []int
 }
 
 func (heap *MinHeap) Insert(num int) {
-  heap.slice = append(heap.slice, num) 
-  heap.heapifyUp(len(heap.slice)-1)
+  heap.Slice = append(heap.Slice, num) 
+  heap.heapifyUp(len(heap.Slice)-1)
 }
 
 func (heap *MinHeap) Extract() int {
-  minValue := heap.slice[0]
-  heap.slice[0] = heap.slice[len(heap.slice)-1]
-  heap.slice = heap.slice[:len(heap.slice)-1]
+  minValue := heap.Slice[0]
+  heap.Slice[0] = heap.Slice[len(heap.Slice)-1]
+  heap.Slice = heap.Slice[:len(heap.Slice)-1]
   heap.heapifyDown(0)
   return minValue
 }
 
 func (heap *MinHeap) heapifyUp(index int) {
   parent := heap.getParent(index)
-  if (heap.slice[index] > heap.slice[parent]) {
+  if (heap.Slice[index] > heap.Slice[parent]) {
     return
   }
-  heap.slice[index], heap.slice[parent] = heap.slice[parent], heap.slice[index]
+  heap.Slice[index], heap.Slice[parent] = heap.Slice[parent], heap.Slice[index]
   heap.heapifyUp(parent)
 }
 
@@ -31,18 +31,29 @@ func (heap *MinHeap) heapifyDown(index int) {
   rightIndex := heap.getRight(index) 
   var childIndexToCompare int
 
-  if (leftIndex < len(heap.slice)-1) {
-    if (heap.slice[leftIndex] < heap.slice[rightIndex]) {
+  if (leftIndex < len(heap.Slice)-1) {
+    if (heap.Slice[leftIndex] < heap.Slice[rightIndex]) {
       childIndexToCompare = leftIndex 
     } else {
       childIndexToCompare = rightIndex
     }
-    if (heap.slice[index] < heap.slice[childIndexToCompare]) {
+    if (heap.Slice[index] < heap.Slice[childIndexToCompare]) {
       return
     }
-    heap.slice[index], heap.slice[childIndexToCompare] = heap.slice[childIndexToCompare], heap.slice[index] 
+    heap.Slice[index], heap.Slice[childIndexToCompare] = heap.Slice[childIndexToCompare], heap.Slice[index] 
     heap.heapifyDown(childIndexToCompare)
   }
+}
+
+func (heap *MinHeap) Sort() []int {
+  toBeSortedHeap := &MinHeap{
+    Slice: append([]int(nil), heap.Slice...),
+  }
+  sorted := make([]int, 0)
+  for (len(toBeSortedHeap.Slice) > 0) {
+    sorted = append(sorted, toBeSortedHeap.Extract())
+  }
+  return sorted
 }
 
 func (heap *MinHeap) getParent(index int) int {

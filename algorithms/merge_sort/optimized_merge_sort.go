@@ -1,3 +1,5 @@
+package mergesort
+
 func sortArray(nums []int) []int {
   mergeSort(nums, 0, len(nums)-1)
   return nums

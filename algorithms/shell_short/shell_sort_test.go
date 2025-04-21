@@ -1,6 +1,8 @@
-package mergesort
+package shellsort
 
-import "testing"
+import (
+	"testing"
+)
 
 type testInput struct {
   arg1, expected []int
@@ -26,9 +28,9 @@ func slicesEqual(a, b []int) bool {
 }
 
 
-func TestMergeSort(t *testing.T)  {
+func TestShellSort(t *testing.T)  {
   for _, test := range testInputs {
-    if result := MergeSort(test.arg1); slicesEqual(result, test.expected) != true {
+    if result := ShellSort(4, test.arg1); slicesEqual(result, test.expected) != true {
       t.Errorf("got %v, wanted %v", result, test.expected)
     }
   }
