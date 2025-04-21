@@ -1,7 +1,6 @@
-package sort
+package heapsort
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -40,26 +39,37 @@ var testInputs = []testInput{
 func TestHeapInsert(t *testing.T)  {
   heap := &MinHeap{testInputs[0].arg1} 
   heap.Insert(3)
-  if slicesEqual(heap.slice, testInputs[0].expected) != true {
-    t.Errorf("got %v, wanted %v", heap.slice, testInputs[0].expected)
+  if slicesEqual(heap.Slice, testInputs[0].expected) != true {
+    t.Errorf("got %v, wanted %v", heap.Slice, testInputs[0].expected)
   }
 }
 
 func TestHeapExtract(t *testing.T) {
   heap := &MinHeap{testInputs[1].arg1}
   heap.Extract()
-  if slicesEqual(heap.slice, testInputs[1].expected) != true {
-    t.Errorf("got %v, wanted %v", heap.slice, testInputs[1].expected) }
+  if slicesEqual(heap.Slice, testInputs[1].expected) != true {
+    t.Errorf("got %v, wanted %v", heap.Slice, testInputs[1].expected) }
 }
 
 func TestHeapSort(t *testing.T) {
   heap := &MinHeap{testInputs[2].arg1}
-  toBeSortedHeap := heap
+  toBeSortedHeap := &MinHeap{
+    Slice: append([]int(nil), heap.Slice...),
+  }
   sorted := make([]int, 0)
-  for (len(toBeSortedHeap.slice) > 0) {
-  fmt.Println(toBeSortedHeap)
+  for (len(toBeSortedHeap.Slice) > 0) {
     sorted = append(sorted, toBeSortedHeap.Extract())
   }
+  if slicesEqual(sorted, testInputs[2].expected) != true {
+    t.Errorf("got %v, wanted %v", sorted, testInputs[2].expected) }
+}
+
+func TestHeapSortMethod(t *testing.T) {
+  heap := &MinHeap{testInputs[2].arg1}
+  toBeSortedHeap := &MinHeap{
+    Slice: append([]int(nil), heap.Slice...),
+  }
+  sorted := toBeSortedHeap.Sort()
   if slicesEqual(sorted, testInputs[2].expected) != true {
     t.Errorf("got %v, wanted %v", sorted, testInputs[2].expected) }
 }

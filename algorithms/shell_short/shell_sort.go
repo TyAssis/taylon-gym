@@ -1,4 +1,4 @@
-package sort
+package shellsort
 
 func ShellSort(gap int, slice []int) []int {
   sorted := make([]int, len(slice))

@@ -1,11 +1,11 @@
-package quicksort
+package quicksortleft
 
 func quickSort(slice []int, left int, right int) []int {
   if (left >= right) {
     return slice
   }
   
-  pivot := slice[(left + right) / 2]
+  pivot := slice[left]
   pLeft := left
   pRight := right
   for (left <= right) {

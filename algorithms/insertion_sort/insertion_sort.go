@@ -1,6 +1,4 @@
-package sort
-
-// import "fmt"
+package insertion_sort
 
 func InsertionSort(unsorted []int) []int {
   sorted := make([]int, len(unsorted))

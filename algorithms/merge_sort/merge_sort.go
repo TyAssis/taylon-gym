@@ -1,12 +1,10 @@
-package sort
+package mergesort
 
 import (
-	"fmt"
 	"math"
 )
 
 func MergeSort(array []int) []int {
-  fmt.Println(array)
   length := len(array)
   if length <= 1 {
     return array
