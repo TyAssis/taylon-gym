@@ -1,0 +1,12 @@
+### Padrão: Sliding Window
+Para estas questões sempre precisamos de um mapa (hash) da frequência das ocorrências,
+de um begin (head) e um end (tail), que são ponteiros no array.
+Para mínimos, também precisamos salvar onde começa a string.
+Em ambos devemos guardar o tamanho máximo/mínimo encontrado.
+
+### Máximo e mínimo
+É preciso lembrar que para problemas de mínimo, assim que a condição ficar inválida,
+no inner loop a primeira coisa que fazemos é calcular o valor mínimo. Depois invalidar para
+checar o restart do array.
+Já para problemas de valor máximo, entramos no inner loop quando a condição fica inválida, então
+só no final do inner loop, após tentar deixar a condição válida, é que calcumas o valor máximo.
